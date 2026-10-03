@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+    # Ignore only majors here on purpose: minors are the ones that break the
+    # build, so they keep flowing. (cpreflight's own rule agrees: an ignore
+    # block that only blocks majors is reported.)
+    ignore:
+      - dependency-name: "actions/checkout"
+        versions: [">=5"]
+      - dependency-name: "actions/setup-python"
+        versions: [">=6"]
+      - dependency-name: "actions/upload-artifact"
+        versions: [">=5"]
+      - dependency-name: "actions/download-artifact"
+        versions: [">=5"]
+
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      python-deps:
+        patterns: ["*"]

@@ -1,0 +1,14 @@
+# cpreflight suppressions.
+#
+# Format: <rule-id>            -> silence that rule everywhere
+#         <rule-id>:<glob>     -> silence it for matching paths only
+#
+# Our Dependabot policy is deliberate: hold MAJOR bumps (they are the breaking
+# ones we want to schedule by hand) but let MINOR and patch updates flow, because
+# those carry the security fixes. The dependabot-major-only-ignore rule reports
+# exactly that shape on purpose, so it is suppressed here rather than weakened.
+dependabot-major-only-ignore:.github/dependabot.yml
+
+# Test fixtures legitimately contain credential-shaped strings ("sk_live_...")
+# so the rule can prove it fires. They are not real secrets.
+hardcoded-credential:tests
