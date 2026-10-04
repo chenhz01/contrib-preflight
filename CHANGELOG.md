@@ -22,6 +22,17 @@ contributing to other repositories.
 - CI that runs the tests, builds the distribution, asserts the artifacts exist, and
   runs `cpreflight scan` against this repository on every push.
 
+### Fixed after the first release candidate
+
+- `py.typed` was missing while the metadata still advertised
+  `Typing :: Typed`. Without the PEP 561 marker type checkers silently ignore
+  the package's annotations, so the classifier was claiming a capability the
+  wheel did not ship. The marker now ships in `src/cpreflight/`, lands in the
+  built wheel, and a regression test fails if either half is dropped later.
+- CI pinned `actions/download-artifact` to `fa0a91b8…` and labelled it `v4`.
+  That commit dates from 2024-07-05 and predates v4; v4 resolves to
+  `d3f86a10…` (2025-04-24). The pin now matches the tag it claims.
+
 ### Fixed during development
 
 - The scanner deduplicated file *reads* in a way that stopped later rules from
